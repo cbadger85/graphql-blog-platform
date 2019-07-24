@@ -1,11 +1,13 @@
 import 'reflect-metadata';
 import { Arg, Mutation, Query, Resolver } from 'type-graphql';
 import { User } from './User.entity';
-import { createUser } from './User.service';
+import { UserService } from './User.service';
 import { RegisterInputType } from './types/RegisterInputType';
 
 @Resolver()
 export class RegisterResolver {
+  constructor(private userService = new UserService()) {}
+
   @Query()
   hello(): string {
     return 'hello-world';
@@ -13,6 +15,6 @@ export class RegisterResolver {
 
   @Mutation(() => User)
   async register(@Arg('input') user: RegisterInputType): Promise<User> {
-    return await createUser(user);
+    return await this.userService.createUser(user);
   }
 }

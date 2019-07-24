@@ -1,10 +1,16 @@
-import { createUser } from '../User.service';
+import { UserService } from '../User.service';
 import bcrypt from 'bcryptjs';
+
+let userService: UserService;
+
+beforeAll(() => {
+  userService = new UserService(jest.fn() as any);
+});
 
 describe('UserService', () => {
   it('should call bcrypt with the password', async () => {
     jest.mock('bcryptjs');
-    bcrypt.hash = jest.fn();
+    bcrypt.hash = await jest.fn();
     const user = {
       name: 'name',
       username: 'username',
@@ -12,7 +18,7 @@ describe('UserService', () => {
       email: 'email@email.com',
     };
 
-    createUser(user, jest.fn(() => user) as any);
+    userService.createUser(user);
 
     expect(bcrypt.hash).toHaveBeenCalledTimes(1);
     expect(bcrypt.hash).toHaveBeenCalledWith(user.password, 12);
