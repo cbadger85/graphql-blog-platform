@@ -1,8 +1,9 @@
+import 'reflect-metadata';
 import { Field, ID, ObjectType } from 'type-graphql';
 import { Column, Entity, Generated, PrimaryColumn } from 'typeorm';
 
-@ObjectType()
 @Entity()
+@ObjectType()
 export class User {
   @Field(() => ID)
   @PrimaryColumn()

@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import { InputType, Field } from 'type-graphql';
 import { IsNotEmpty, IsEmail } from 'class-validator';
 import { IsFieldUnique } from '../validators/IsFieldUnique';

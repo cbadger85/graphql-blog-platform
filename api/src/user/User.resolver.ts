@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import { Arg, Mutation, Query, Resolver } from 'type-graphql';
 import { User } from './User.entity';
 import { createUser } from './User.service';
