@@ -29,8 +29,8 @@ const RegisterMutation = `
 
 `;
 
-describe('Register', () => {
-  it('creates a user', async () => {
+describe('Register Integration', () => {
+  it('should creates a user', async () => {
     const user = {
       name: 'name',
       email: 'email@email.com',

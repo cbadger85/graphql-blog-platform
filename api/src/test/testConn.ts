@@ -14,5 +14,5 @@ export const testConn = async (drop: boolean = false) => {
     dropSchema: drop,
   };
 
-  return await createConnection(testConnectionOptions);
+  return createConnection(testConnectionOptions);
 };

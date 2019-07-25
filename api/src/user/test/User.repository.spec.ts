@@ -24,7 +24,7 @@ describe('User Repository', () => {
 
   let userId: string | undefined;
 
-  it('creates a user', async () => {
+  it('should save a user to the database', async () => {
     const createdUser = await userRepository.createAndSave(user);
 
     userId = createdUser.id;
