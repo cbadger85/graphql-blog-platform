@@ -6,14 +6,13 @@ export const testConn = async (drop: boolean = false) => {
 
   const dbPath = path.resolve(__dirname + '/../../data/db.test.sqlite');
 
-  console.log(dbPath);
-
   const testConnectionOptions = {
     ...connectionOptions,
     database: dbPath as any,
+    logging: false,
     synchronize: drop,
     dropSchema: drop,
   };
 
-  return createConnection(testConnectionOptions);
+  return await createConnection(testConnectionOptions);
 };
