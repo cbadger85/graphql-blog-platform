@@ -1,6 +1,5 @@
 import { Inject, Injectable } from '@graphql-modules/di';
 import bcrypt from 'bcryptjs';
-import { getCustomRepository, ObjectType, ConnectionManager } from 'typeorm';
 import { User } from './User.Entity';
 import { UserRepository } from './User.repository';
 

@@ -14,13 +14,15 @@ const userRepository = getCustomRepository(UserRepository);
 @ValidatorConstraint({ async: true })
 export class IsFieldUniqueConstraint implements ValidatorConstraintInterface {
   validate(fieldValue: string, args: ValidationArguments): Promise<boolean> {
-    return userRepository.findByField(args.property, fieldValue).then(user => {
-      if (!user) {
-        return true;
-      }
+    return userRepository
+      .findUserByField(args.property, fieldValue)
+      .then(user => {
+        if (!user) {
+          return true;
+        }
 
-      return false;
-    });
+        return false;
+      });
   }
 }
 
