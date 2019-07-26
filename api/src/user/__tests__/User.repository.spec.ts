@@ -1,4 +1,4 @@
-import { testConn } from '../../test/testConn';
+import { testConn } from '../../test-utils/testConn';
 import { Connection, getCustomRepository } from 'typeorm';
 import { UserRepository } from '../User.repository';
 
@@ -25,7 +25,7 @@ describe('User Repository', () => {
   let userId: string | undefined;
 
   it('should save a user to the database', async () => {
-    const createdUser = await userRepository.createAndSave(user);
+    const createdUser = await userRepository.createUser(user);
 
     userId = createdUser.id;
 
@@ -46,7 +46,10 @@ describe('User Repository', () => {
   });
 
   it('should find a user by field', async () => {
-    const retrievedUser = await userRepository.findByField('email', user.email);
+    const retrievedUser = await userRepository.findUserByField(
+      'email',
+      user.email
+    );
 
     expect(retrievedUser).toMatchObject(user);
   });

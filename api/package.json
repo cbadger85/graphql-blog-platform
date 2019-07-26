@@ -5,7 +5,7 @@
   "main": "index.ts",
   "scripts": {
     "start": "nodemon",
-    "db:setup": "ts-node ./src/test/dbSetup.ts",
+    "db:setup": "ts-node ./src/test-utils/dbSetup.ts",
     "build": "tsc",
     "test": "npm run db:setup && jest --verbose"
   },
@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/cbadger85/badger-cms#readme",
   "dependencies": {
+    "@graphql-modules/core": "^0.7.8",
     "apollo-server-express": "^2.7.0",
     "bcryptjs": "^2.4.3",
     "class-validator": "^0.9.1",
@@ -28,7 +29,9 @@
     "reflect-metadata": "^0.1.13",
     "sqlite3": "^4.0.9",
     "type-graphql": "^0.17.4",
+    "typedi": "^0.8.0",
     "typeorm": "^0.2.18",
+    "typeorm-typedi-extensions": "^0.2.3",
     "uuid": "^3.3.2"
   },
   "devDependencies": {

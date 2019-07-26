@@ -1,20 +1,21 @@
-import 'reflect-metadata';
-import { Arg, Mutation, Query, Resolver } from 'type-graphql';
-import { User } from './User.entity';
-import { UserService } from './User.service';
-import { RegisterInputType } from './types/RegisterInputType';
+import { ModuleContext } from '@graphql-modules/core';
+import { UserProvider } from './User.provider';
+import { User } from './User.Entity';
 
-@Resolver()
-export class RegisterResolver {
-  constructor(private userService = new UserService()) {}
-
-  @Query()
-  hello(): string {
-    return 'hello-world';
-  }
-
-  @Mutation(() => User)
-  async register(@Arg('input') user: RegisterInputType): Promise<User> {
-    return await this.userService.createUser(user);
-  }
-}
+export const UserResolver = {
+  Mutation: {
+    register: (
+      root: undefined,
+      { input }: { input: User },
+      { injector }: ModuleContext
+    ) => {
+      return injector.get(UserProvider).createUser({
+        name: input.name,
+        username: input.username,
+        password: input.password,
+        email: input.email,
+      });
+    },
+    hello: (root: undefined, { name }: { name: string }) => name,
+  },
+};
