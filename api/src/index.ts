@@ -2,21 +2,16 @@ import { GraphQLModule } from '@graphql-modules/core';
 import { ApolloServer } from 'apollo-server-express';
 import Express from 'express';
 import 'reflect-metadata';
-import { ConnectionOptions, createConnection } from 'typeorm';
+import { createConnection, getConnectionOptions } from 'typeorm';
 import { User } from './user/User.entity';
 import { UserModule } from './user/UserModule';
 
-const options: ConnectionOptions = {
-  type: 'sqlite',
-  database: './data/db.sqlite',
-  entities: [User],
-  logging: true,
-  synchronize: true,
-  dropSchema: true,
-};
-
 async function main() {
-  await createConnection(options);
+  const connectionOptions = await getConnectionOptions();
+  await createConnection({
+    ...connectionOptions,
+    entities: [User],
+  });
 
   const graphqlModules = new GraphQLModule({
     imports: [UserModule],

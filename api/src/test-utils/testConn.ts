@@ -1,23 +1,22 @@
+import path from 'path';
 import {
+  ConnectionOptions,
   createConnection,
   getConnectionOptions,
-  ConnectionOptions,
 } from 'typeorm';
-import path from 'path';
-import { User } from '../user/User.entity';
 
 export const testConn = async (drop: boolean = false) => {
-  // const connectionOptions = await getConnectionOptions();
-
-  const dbPath = path.resolve(__dirname + '/../../data/db.test.sqlite');
+  const connectionOptions = await getConnectionOptions();
 
   const testConnectionOptions: ConnectionOptions = {
+    ...connectionOptions,
     type: 'sqlite',
     database: ':memory:',
     logging: false,
     synchronize: false,
     dropSchema: drop,
-    entities: [User],
+    migrationsRun: true,
+    entities: [path.join(__dirname, '..', '/**/*.entity.ts')],
   };
 
   return createConnection(testConnectionOptions);

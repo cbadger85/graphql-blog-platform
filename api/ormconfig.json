@@ -1,0 +1,12 @@
+{
+  "type": "sqlite",
+  "database": "data/db.sqlite",
+  "synchronize": true,
+  "logging": true,
+  "dropSchema": true,
+  "migrations": ["data/db/migration/**/*.ts"],
+  "cli": {
+    "entitiesDir": "src/",
+    "migrationsDir": "data/db/migration"
+  }
+}
