@@ -4,7 +4,7 @@ import { UserRepository } from './User.repository';
 import { UserResolver } from './User.resolver';
 import { getCustomRepository } from 'typeorm';
 import { userTypeDefs } from './User.typedefs';
-import { testMiddleware } from './middleware/testMiddleware';
+import { testMiddleware, validateInput } from './middleware/testMiddleware';
 
 export const UserModule = new GraphQLModule({
   providers: [
@@ -16,5 +16,7 @@ export const UserModule = new GraphQLModule({
   ],
   resolvers: [UserResolver],
   typeDefs: userTypeDefs,
-  resolversComposition: { 'Mutation.register': testMiddleware() },
+  resolversComposition: {
+    'Mutation.register': [testMiddleware(), validateInput()],
+  },
 });
