@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import { testConn } from '../../test-utils/testConn';
 import { Connection, getCustomRepository } from 'typeorm';
 import { UserRepository } from '../User.repository';

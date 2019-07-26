@@ -13,9 +13,9 @@ export const testConn = async (drop: boolean = false) => {
 
   const testConnectionOptions: ConnectionOptions = {
     type: 'sqlite',
-    database: dbPath as any,
+    database: ':memory:',
     logging: false,
-    synchronize: drop,
+    synchronize: false,
     dropSchema: drop,
     entities: [User],
   };
