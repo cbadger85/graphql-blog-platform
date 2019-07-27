@@ -1,13 +1,13 @@
-import { ModuleContext } from '@graphql-modules/core';
-import { UserProvider } from './User.provider';
+import { ContextType } from '../types/ContextType';
 import { User } from './User.Entity';
+import { UserProvider } from './User.provider';
 
 export const UserResolver = {
   Mutation: {
     register: (
       root: undefined,
       { input }: { input: User },
-      { injector }: ModuleContext
+      { injector }: ContextType
     ) => {
       return injector.get(UserProvider).createUser({
         name: input.name,

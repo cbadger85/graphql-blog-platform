@@ -5,6 +5,7 @@ import { UserResolver } from './User.resolver';
 import { getCustomRepository } from 'typeorm';
 import { userTypeDefs } from './User.typedefs';
 import { validateInput } from '../middleware/validateInput';
+import { isUserUnique } from '../middleware/isUserUnique';
 
 export const UserModule = new GraphQLModule({
   providers: [
@@ -17,6 +18,6 @@ export const UserModule = new GraphQLModule({
   resolvers: [UserResolver],
   typeDefs: userTypeDefs,
   resolversComposition: {
-    'Mutation.register': [validateInput()],
+    'Mutation.register': [validateInput(), isUserUnique()],
   },
 });

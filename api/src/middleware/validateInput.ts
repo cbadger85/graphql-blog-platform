@@ -1,5 +1,5 @@
-import { User } from 'src/user/User.entity';
-import { ContextType } from 'src/types/ContextType';
+import { ContextType } from '../types/ContextType';
+import { User } from '../user/User.entity';
 import { validationSchema } from './validation/validaton';
 
 export const validateInput = () => (next: Function) => async (
