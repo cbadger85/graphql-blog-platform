@@ -1,12 +1,8 @@
-import { isUserUnique } from '../isUserUnique';
-import { User } from '../../user/User.entity';
-import { mockServer } from 'graphql-tools';
 import { ValidationError } from 'apollo-server-core';
+import { isUserUnique } from '../isUserUnique';
 
 describe('isUserUnique', () => {
-  const next = jest.fn();
-
-  const user = {
+  const input = {
     username: 'username',
     email: 'email@email.com',
     password: 'password',
@@ -15,9 +11,9 @@ describe('isUserUnique', () => {
 
   let returnedUser: any;
 
-  const findUserByField = jest.fn((field, value) => returnedUser);
+  const findUserByField = jest.fn(() => returnedUser);
 
-  const getRepo = jest.fn((repo: any) => ({
+  const getRepo = jest.fn(() => ({
     findUserByField,
   }));
 
@@ -25,11 +21,12 @@ describe('isUserUnique', () => {
     req: {} as any,
     res: {} as any,
     injector: {
-      get: jest.fn(repo => getRepo),
+      get: jest.fn(() => getRepo),
     } as any,
   };
 
   const middlewareWrapper = isUserUnique();
+  const next = jest.fn();
   const middleware = middlewareWrapper(next);
 
   beforeEach(() => {
@@ -37,10 +34,9 @@ describe('isUserUnique', () => {
   });
 
   it('should call the next function if user is unique', async () => {
-    await middleware(undefined, { input: user }, context, null);
+    await middleware(undefined, { input }, context, null);
 
-    expect(next).toBeCalled();
-    expect(next).toBeCalledWith(undefined, { input: user }, context, null);
+    expect(next).toBeCalledWith(undefined, { input }, context, null);
   });
 
   it('should call findUserByField twice', async () => {
@@ -48,12 +44,12 @@ describe('isUserUnique', () => {
   });
 
   it('should call findUserByField with username and email', () => {
-    expect(findUserByField).toBeCalledWith('username', user.username);
-    expect(findUserByField).toBeCalledWith('email', user.email);
+    expect(findUserByField).toBeCalledWith('username', input.username);
+    expect(findUserByField).toBeCalledWith('email', input.email);
   });
 
   it("should throw an error if the user's email is not unique", async () => {
-    const { email } = user;
+    const { email } = input;
 
     returnedUser = {
       name: 'name2',
@@ -62,20 +58,17 @@ describe('isUserUnique', () => {
       password: 'pass123',
     };
 
-    const err = await middleware(
-      undefined,
-      { input: user },
-      context,
-      null
-    ).catch(err => {
-      return err;
-    });
+    const err = await middleware(undefined, { input }, context, null).catch(
+      err => {
+        return err;
+      }
+    );
 
     expect(err).toBeInstanceOf(ValidationError);
   });
 
   it("should throw an error if the user's username is not unique", async () => {
-    const { username } = user;
+    const { username } = input;
 
     returnedUser = {
       name: 'name2',
@@ -84,14 +77,11 @@ describe('isUserUnique', () => {
       password: 'pass123',
     };
 
-    const err = await middleware(
-      undefined,
-      { input: user },
-      context,
-      null
-    ).catch(err => {
-      return err;
-    });
+    const err = await middleware(undefined, { input }, context, null).catch(
+      err => {
+        return err;
+      }
+    );
 
     expect(err).toBeInstanceOf(ValidationError);
 
