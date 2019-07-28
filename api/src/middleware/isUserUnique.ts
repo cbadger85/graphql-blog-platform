@@ -32,8 +32,7 @@ export const isUserUnique = () => (next: Function) => async (
     const validationError = new ValidationError(errors.join(', '));
     validationError.extensions.errors = errors;
 
-    // throw validationError;
-    throw new Error();
+    throw validationError;
   }
 
   return next(_root, { input }, context, _info);

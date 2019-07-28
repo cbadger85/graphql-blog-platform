@@ -4,7 +4,7 @@ import bcrypt from 'bcryptjs';
 
 describe('UserProvider', () => {
   const repositoryMock = {
-    createUser: () => null,
+    createUser: jest.fn(),
   };
 
   const userProvider = new UserProvider(jest.fn(() => repositoryMock as any));
@@ -21,15 +21,15 @@ describe('UserProvider', () => {
 
     await userProvider.createUser(user);
 
-    expect(bcrypt.hash).toHaveBeenCalled();
     expect(bcrypt.hash).toHaveBeenCalledWith(user.password, 12);
   });
 
-  it('should call createUser with the hashed password', async () => {
+  it('should return a user with the hashed password', async () => {
     jest.mock('bcryptjs');
-    bcrypt.hash = await jest.fn(() => 'hashedPassword' as any);
 
-    repositoryMock.createUser = jest.fn();
+    const hashedPassword = 'hashedPassword';
+
+    bcrypt.hash = await jest.fn(() => hashedPassword as any);
 
     const user = {
       name: 'name',
@@ -38,14 +38,23 @@ describe('UserProvider', () => {
       email: 'email@email.com',
     };
 
-    const expectedUser = {
+    const generatedId = 1;
+
+    const savedUser = {
       ...user,
-      password: 'hashedPassword',
+      password: hashedPassword,
+      id: generatedId,
     };
 
-    await userProvider.createUser(user);
+    repositoryMock.createUser = jest.fn(() => savedUser);
 
-    expect(repositoryMock.createUser).toHaveBeenCalledWith(expectedUser);
-    expect(repositoryMock.createUser).toHaveBeenCalled();
+    const expectedSavedUser = await userProvider.createUser(user);
+
+    expect(repositoryMock.createUser).toHaveBeenCalledWith({
+      ...user,
+      password: hashedPassword,
+    });
+
+    expect(expectedSavedUser).toBe(savedUser);
   });
 });
