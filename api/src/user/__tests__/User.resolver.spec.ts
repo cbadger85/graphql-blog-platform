@@ -28,7 +28,7 @@ const context = {
 
 describe('UserResolver', () => {
   it('should call createUser', async () => {
-    const newUser = UserResolver.Mutation.register(
+    const newUser = UserResolver.Mutation.createUser(
       undefined,
       { input },
       context as any

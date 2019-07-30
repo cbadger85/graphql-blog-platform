@@ -4,7 +4,7 @@ import { UserProvider } from './User.provider';
 
 export const UserResolver = {
   Mutation: {
-    register: (
+    createUser: (
       root: undefined,
       { input }: { input: User },
       { injector }: ContextType

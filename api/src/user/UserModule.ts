@@ -18,6 +18,6 @@ export const UserModule = new GraphQLModule({
   resolvers: [UserResolver],
   typeDefs: userTypeDefs,
   resolversComposition: {
-    'Mutation.register': [validateInput(), isUserUnique()],
+    'Mutation.createUser': [validateInput(), isUserUnique()],
   },
 });
