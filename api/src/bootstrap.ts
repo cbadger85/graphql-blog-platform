@@ -33,11 +33,11 @@ const bootstrap = async () => {
 
   const userRepository = getCustomRepository(UserRepository);
 
-  const password = await bcrypt.hash(process.env.PASSWORD as string, 12);
+  const password = await bcrypt.hash(process.env.ADMIN_PASSWORD as string, 12);
   await userRepository.createUser({
-    name: 'admin',
-    username: process.env.USERNAME as string,
-    email: 'admin',
+    name: process.env.ADMIN_NAME as string,
+    username: process.env.ADMIN_USERNAME as string,
+    email: process.env.ADMIN_EMAIL as string,
     password,
   });
 
