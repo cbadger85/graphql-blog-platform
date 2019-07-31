@@ -1,7 +1,7 @@
 {
-  "name": "badger-cms-api",
+  "name": "graphql-blog-platform",
   "version": "1.0.0",
-  "description": "API for Badger CMS",
+  "description": "graphql api for the graphql-blog-platform",
   "main": "index.ts",
   "scripts": {
     "start": "nodemon",
