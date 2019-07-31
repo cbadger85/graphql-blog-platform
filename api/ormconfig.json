@@ -3,7 +3,7 @@
   "database": "data/db.sqlite",
   "synchronize": true,
   "logging": true,
-  "dropSchema": true,
+  "dropSchema": false,
   "migrations": ["data/db/migration/**/*.ts"],
   "cli": {
     "entitiesDir": "src/",

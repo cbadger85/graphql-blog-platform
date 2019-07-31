@@ -39,7 +39,7 @@ describe('UserModule', () => {
           createUser(
             input: {
               name: "name"
-              email: "charles.badger@gmail.com"
+              email: "email@gmail.com"
               password: "pass123"
               username: "bob"
             }
