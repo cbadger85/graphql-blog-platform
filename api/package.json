@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cbadger85/badger-cms.git"
+    "url": "git+https://github.com/cbadger85/graphql-blog-platform.git"
   },
   "author": "Charles Badger",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/cbadger85/badger-cms/issues"
+    "url": "https://github.com/cbadger85/graphql-blog-platform/issues"
   },
-  "homepage": "https://github.com/cbadger85/badger-cms#readme",
+  "homepage": "https://github.com/cbadger85/graphql-blog-platform#readme",
   "dependencies": {
     "@graphql-modules/core": "^0.7.8",
     "@hapi/joi": "^15.1.0",
