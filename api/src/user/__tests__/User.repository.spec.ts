@@ -15,14 +15,14 @@ afterAll(async () => {
   await conn.close();
 });
 
-describe('User Repository', () => {
-  const user = {
-    username: 'username1',
-    name: 'first last',
-    email: 'test@test.com',
-    password: 'pass123',
-  };
+const user = {
+  username: 'username1',
+  name: 'first last',
+  email: 'test@test.com',
+  password: 'pass123',
+};
 
+describe('UserRepository createUser', () => {
   let userId: string | undefined;
 
   it('should save a user to the database', async () => {
@@ -45,7 +45,9 @@ describe('User Repository', () => {
 
     expect(retrievedUser).toMatchObject(user);
   });
+});
 
+describe('UserRepository - findUserByField', () => {
   it('should find a user by field', async () => {
     const retrievedUser = await userRepository.findUserByField(
       'email',

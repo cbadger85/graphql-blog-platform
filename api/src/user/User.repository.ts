@@ -1,9 +1,15 @@
 import { EntityRepository, Repository } from 'typeorm';
 import { User } from './User.entity';
+import { ICreateUser } from './types/ICreateUser';
 
 @EntityRepository(User)
 export class UserRepository extends Repository<User> {
-  async createUser({ name, email, password, username }: User): Promise<User> {
+  async createUser({
+    name,
+    email,
+    password,
+    username,
+  }: ICreateUser): Promise<User> {
     const user = new User();
     user.email = email;
     user.name = name;

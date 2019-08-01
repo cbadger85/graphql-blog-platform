@@ -2,6 +2,9 @@ import { Inject, Injectable } from '@graphql-modules/di';
 import bcrypt from 'bcryptjs';
 import { User } from './User.Entity';
 import { UserRepository } from './User.repository';
+import { AuthenticationError } from 'apollo-server-express';
+import { IUserLogin } from './types/IUserLogin';
+import { ICreateUser } from './types/ICreateUser';
 
 @Injectable()
 export class UserProvider {
@@ -12,7 +15,12 @@ export class UserProvider {
     this.repository = userRepository();
   }
 
-  async createUser({ name, email, password, username }: User): Promise<User> {
+  async createUser({
+    name,
+    email,
+    password,
+    username,
+  }: ICreateUser): Promise<User> {
     const hashedPassword = await bcrypt.hash(password, 12);
 
     return await this.repository.createUser({
@@ -21,5 +29,21 @@ export class UserProvider {
       username,
       password: hashedPassword,
     });
+  }
+
+  async login({ username, password }: IUserLogin): Promise<User> {
+    const user = await this.repository.findUserByField('username', username);
+
+    if (!user) {
+      throw new AuthenticationError('Invalid credentials');
+    }
+
+    const validPassword = await bcrypt.compare(password, user.password);
+
+    if (!validPassword) {
+      throw new AuthenticationError('Invalid credentials');
+    }
+
+    return user;
   }
 }

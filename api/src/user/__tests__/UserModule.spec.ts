@@ -18,6 +18,7 @@ injector.provide({
   overwrite: true,
   useValue: {
     createUser: () => user,
+    login: () => user,
   },
 } as any);
 
@@ -30,7 +31,7 @@ injector.provide({
   }),
 });
 
-describe('UserModule', () => {
+describe('UserModule - createUser mutation', () => {
   it('should create a user and return it', async () => {
     const result = await execute({
       schema,
@@ -56,12 +57,50 @@ describe('UserModule', () => {
     expect(result.data!.createUser).toBeDefined();
   });
 
-  it('should return an error if the input is invalid', async () => {
+  it('should return an error if the createUser input is invalid', async () => {
     const result = await execute({
       schema,
       document: gql`
         mutation {
           createUser(input: {}) {
+            id
+            name
+            email
+            username
+          }
+        }
+      `,
+    });
+
+    expect(result.errors).toBeDefined();
+  });
+});
+
+describe('UserModule - login mutation', () => {
+  it('should log a user in and return a user', async () => {
+    const result = await execute({
+      schema,
+      document: gql`
+        mutation {
+          login(input: { password: "pass123", username: "bob" }) {
+            id
+            name
+            email
+            username
+          }
+        }
+      `,
+    });
+
+    expect(result.data!.login).toBeDefined();
+  });
+
+  it('should return an error if the login input is invalid', async () => {
+    const result = await execute({
+      schema,
+      document: gql`
+        mutation {
+          login(input: {}) {
             id
             name
             email

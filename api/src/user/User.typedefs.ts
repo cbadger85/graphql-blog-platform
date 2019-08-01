@@ -26,4 +26,13 @@ export const userTypeDefs = gql`
   type Mutation {
     hello(name: String!): String!
   }
+
+  input LoginInput {
+    username: String!
+    password: String!
+  }
+
+  type Mutation {
+    login(input: LoginInput!): User
+  }
 `;
