@@ -1,8 +1,7 @@
 import { ContextType } from '../types/ContextType';
-import { User } from './User.Entity';
-import { UserProvider } from './User.provider';
-import { IUserLogin } from './types/IUserLogin';
 import { ICreateUser } from './types/ICreateUser';
+import { IUserLogin } from './types/IUserLogin';
+import { UserProvider } from './User.provider';
 
 export const UserResolver = {
   Mutation: {
