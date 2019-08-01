@@ -61,6 +61,11 @@ const bootstrap = async () => {
           type: 'character varying',
           isNullable: false,
         },
+        {
+          name: 'sessionId',
+          type: 'character varying',
+          isNullable: true,
+        },
       ],
     })
   );

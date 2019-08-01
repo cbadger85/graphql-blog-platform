@@ -1,6 +1,6 @@
 import { testConn } from './testConn';
 
-testConn(true)
+testConn()
   .then(conn => conn.synchronize())
   .then(() => process.exit())
   .catch();

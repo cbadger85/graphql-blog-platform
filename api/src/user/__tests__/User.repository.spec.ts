@@ -38,6 +38,7 @@ describe('UserRepository createUser', () => {
     });
 
     expect(createdUser.id).toBeDefined();
+    expect(createdUser.sessionId).toBeDefined();
   });
 
   it('should exist in the database', async () => {

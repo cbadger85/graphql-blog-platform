@@ -1,4 +1,5 @@
 import { EntityRepository, Repository } from 'typeorm';
+import uuid from 'uuid/v4';
 import { User } from './User.entity';
 import { ICreateUser } from './types/ICreateUser';
 
@@ -10,11 +11,14 @@ export class UserRepository extends Repository<User> {
     password,
     username,
   }: ICreateUser): Promise<User> {
+    const sessionId = uuid();
+
     const user = new User();
     user.email = email;
     user.name = name;
     user.password = password;
     user.username = username;
+    user.sessionId = sessionId;
     return await this.save(user);
   }
 

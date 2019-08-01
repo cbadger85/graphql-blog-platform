@@ -6,9 +6,11 @@
   "scripts": {
     "start": "nodemon",
     "db:setup": "ts-node ./src/test-utils/dbSetup.ts",
-    "build": "tsc --project tsconfig.build.json",
     "test": "npm run db:setup && jest --verbose",
-    "bootstrap": "ts-node ./src/bootstrap.ts"
+    "build": "npm test && tsc --project tsconfig.build.json",
+    "bootstrap:dev": "ts-node ./src/bootstrap.ts",
+    "bootstrap": "npm run build && node ./dist/bootstrap.js",
+    "serve": "node ./dist/index.js"
   },
   "repository": {
     "type": "git",
