@@ -23,7 +23,7 @@ const user = {
 };
 
 describe('UserRepository createUser', () => {
-  let userId: string | undefined;
+  let userId: number | undefined;
 
   it('should save a user to the database', async () => {
     const createdUser = await userRepository.createUser(user);

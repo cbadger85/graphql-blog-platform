@@ -4,6 +4,7 @@ import {
   createConnection,
   getConnectionOptions,
   getCustomRepository,
+  Table,
 } from 'typeorm';
 import { User } from './user/User.entity';
 import { UserRepository } from './user/User.repository';
@@ -27,8 +28,41 @@ const bootstrap = async () => {
 
   const queryRunner = connection.createQueryRunner();
 
-  queryRunner.query(
-    `CREATE TABLE "user" ("id" SERIAL NOT NULL UNIQUE, "name" character varying NOT NULL, "username" character varying NOT NULL UNIQUE, "email" character varying NOT NULL UNIQUE, "password" character varying NOT NULL, PRIMARY KEY ("id"))`
+  await queryRunner.createTable(
+    new Table({
+      name: 'user',
+      columns: [
+        {
+          name: 'id',
+          type: 'integer',
+          isPrimary: true,
+          isGenerated: true,
+          generationStrategy: 'increment',
+        },
+        {
+          name: 'username',
+          type: 'character varying',
+          isUnique: true,
+          isNullable: false,
+        },
+        {
+          name: 'email',
+          type: 'character varying',
+          isUnique: true,
+          isNullable: false,
+        },
+        {
+          name: 'password',
+          type: 'character varying',
+          isNullable: false,
+        },
+        {
+          name: 'name',
+          type: 'character varying',
+          isNullable: false,
+        },
+      ],
+    })
   );
 
   const userRepository = getCustomRepository(UserRepository);

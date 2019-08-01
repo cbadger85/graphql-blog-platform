@@ -13,9 +13,9 @@ export const testConn = async (drop: boolean = false) => {
     type: 'sqlite',
     database: ':memory:',
     logging: false,
-    synchronize: false,
+    synchronize: true,
     dropSchema: drop,
-    migrationsRun: true,
+    // migrationsRun: true,
     entities: [path.join(__dirname, '..', '/**/*.entity.ts')],
   };
 

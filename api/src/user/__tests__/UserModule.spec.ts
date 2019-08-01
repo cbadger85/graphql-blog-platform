@@ -10,7 +10,7 @@ const user = {
   name: 'name',
   password: 'password',
   email: 'email@email.com',
-  id: '1',
+  id: 1,
 };
 
 injector.provide({

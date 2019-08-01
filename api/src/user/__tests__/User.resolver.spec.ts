@@ -18,7 +18,7 @@ const user = {
   email: 'email@email.com',
   password: 'hashedPassword',
   name: 'name',
-  id: '1',
+  id: 1,
 };
 
 const userProvider = {
