@@ -19,5 +19,6 @@ export class User {
   password: string;
 
   @Column('text', { nullable: true })
+  @Generated('uuid')
   sessionId: string;
 }
