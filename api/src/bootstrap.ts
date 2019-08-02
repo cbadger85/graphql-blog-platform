@@ -1,17 +1,10 @@
-import bcrypt from 'bcryptjs';
 import {
   ConnectionOptions,
   createConnection,
   getConnectionOptions,
-  getCustomRepository,
-  Table,
 } from 'typeorm';
 import { User } from './user/User.entity';
-import { UserRepository } from './user/User.repository';
-import dotenv from 'dotenv';
-import { Role } from './user/types/Role';
-
-dotenv.config();
+import { setupAdminUser } from './utils/setupAdminUser';
 
 const bootstrap = async () => {
   const connectionOptions = await getConnectionOptions();
@@ -27,65 +20,7 @@ const bootstrap = async () => {
   const connection = await createConnection(testConnectionOptions);
   await connection.dropDatabase();
 
-  const queryRunner = connection.createQueryRunner();
-
-  await queryRunner.createTable(
-    new Table({
-      name: 'user',
-      columns: [
-        {
-          name: 'id',
-          type: 'integer',
-          isPrimary: true,
-          isGenerated: true,
-          generationStrategy: 'increment',
-        },
-        {
-          name: 'username',
-          type: 'character varying',
-          isUnique: true,
-          isNullable: false,
-        },
-        {
-          name: 'email',
-          type: 'character varying',
-          isUnique: true,
-          isNullable: false,
-        },
-        {
-          name: 'password',
-          type: 'character varying',
-          isNullable: false,
-        },
-        {
-          name: 'name',
-          type: 'character varying',
-          isNullable: false,
-        },
-        {
-          name: 'sessionId',
-          type: 'character varying',
-          isNullable: true,
-        },
-        {
-          name: 'role',
-          type: 'text',
-          isNullable: false,
-        },
-      ],
-    })
-  );
-
-  const userRepository = getCustomRepository(UserRepository);
-
-  const password = await bcrypt.hash(process.env.ADMIN_PASSWORD as string, 12);
-  await userRepository.createUser({
-    name: process.env.ADMIN_NAME as string,
-    username: process.env.ADMIN_USERNAME as string,
-    email: process.env.ADMIN_EMAIL as string,
-    role: [Role.ADMIN, Role.EDITOR, Role.WRITER],
-    password,
-  });
+  await setupAdminUser(connection);
 
   await connection.close();
 };

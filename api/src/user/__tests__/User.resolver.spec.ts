@@ -1,11 +1,13 @@
 import 'reflect-metadata';
 import { UserResolver } from '../User.resolver';
+import { Role } from '../types/Role';
 
 const createUserInput = {
   username: 'username',
   email: 'email@email.com',
   password: 'password',
   name: 'name',
+  role: [Role.WRITER],
 };
 
 const loginInput = {
@@ -19,6 +21,7 @@ const user = {
   password: 'hashedPassword',
   name: 'name',
   id: 1,
+  role: [Role.WRITER],
 };
 
 const userProvider = {

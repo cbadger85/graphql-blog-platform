@@ -2,6 +2,7 @@ import 'reflect-metadata';
 import { UserProvider } from '../User.provider';
 import bcrypt from 'bcryptjs';
 import { AuthenticationError } from 'apollo-server-core';
+import { Role } from '../types/Role';
 
 jest.mock('bcryptjs');
 
@@ -20,6 +21,7 @@ describe('UserProvider - createUser', () => {
       username: 'username',
       password: 'pass123',
       email: 'email@email.com',
+      role: [Role.WRITER],
     };
 
     await userProvider.createUser(user);
@@ -37,6 +39,7 @@ describe('UserProvider - createUser', () => {
       username: 'username',
       password: 'pass123',
       email: 'email@email.com',
+      role: [Role.WRITER],
     };
 
     const generatedId = 1;

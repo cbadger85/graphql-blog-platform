@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon",
     "db:setup": "ts-node ./src/test-utils/dbSetup.ts",
-    "test": "npm run db:setup && jest --verbose",
+    "test": "npm run db:setup && jest --verbose --runInBand",
     "build": "npm test && tsc --project tsconfig.build.json",
     "bootstrap:dev": "ts-node ./src/bootstrap.ts",
     "bootstrap": "npm run build && node ./dist/bootstrap.js",
