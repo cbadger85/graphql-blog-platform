@@ -6,6 +6,7 @@ import { getCustomRepository } from 'typeorm';
 import { userTypeDefs } from './User.typedefs';
 import { validateInput } from '../middleware/validateInput';
 import { isUserUnique } from '../middleware/isUserUnique';
+import { createUserValidationSchema } from '../middleware/validation/createUserValidation';
 
 export const UserModule = new GraphQLModule({
   providers: [
@@ -18,6 +19,9 @@ export const UserModule = new GraphQLModule({
   resolvers: [UserResolver],
   typeDefs: userTypeDefs,
   resolversComposition: {
-    'Mutation.createUser': [validateInput(), isUserUnique()],
+    'Mutation.createUser': [
+      validateInput(createUserValidationSchema),
+      isUserUnique(),
+    ],
   },
 });

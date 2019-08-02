@@ -1,8 +1,10 @@
 import { ContextType } from '../types/ContextType';
 import { User } from '../user/User.entity';
-import { validationSchema } from './validation/validaton';
+import { ObjectSchema } from '@hapi/joi';
 
-export const validateInput = () => (next: Function) => async (
+export const validateInput = (validationSchema: ObjectSchema) => (
+  next: Function
+) => async (
   _root: undefined,
   { input }: { input: User },
   context: ContextType,

@@ -1,12 +1,12 @@
 import { validateInput } from '../validateInput';
-
-const middlewareWrapper = validateInput();
-const next = jest.fn();
-const middleware = middlewareWrapper(next);
+import { createUserValidationSchema } from '../validation/createUserValidation';
 
 let input: any;
 
-describe('validateInput', () => {
+describe('validateInput - createUser Mutation', () => {
+  const middlewareWrapper = validateInput(createUserValidationSchema);
+  const next = jest.fn();
+  const middleware = middlewareWrapper(next);
   beforeEach(() => {
     input = undefined;
   });
