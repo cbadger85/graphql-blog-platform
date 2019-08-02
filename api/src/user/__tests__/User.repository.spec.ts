@@ -2,6 +2,7 @@ import 'reflect-metadata';
 import { testConn } from '../../test-utils/testConn';
 import { Connection, getCustomRepository } from 'typeorm';
 import { UserRepository } from '../User.repository';
+import { Role } from '../types/Role';
 
 let conn: Connection;
 let userRepository: UserRepository;
@@ -20,6 +21,7 @@ const user = {
   name: 'first last',
   email: 'test@test.com',
   password: 'pass123',
+  role: [Role.WRITER],
 };
 
 describe('UserRepository createUser', () => {

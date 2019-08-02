@@ -1,4 +1,5 @@
-import Joi from '@hapi/joi';
+import Joi, { JoiObject } from '@hapi/joi';
+import { Role } from '../../user/types/Role';
 
 export const validationSchema = Joi.object().keys({
   name: Joi.string().required(),
@@ -7,4 +8,7 @@ export const validationSchema = Joi.object().keys({
   email: Joi.string()
     .email()
     .required(),
+  role: Joi.array().items(
+    Joi.string().valid(Role.ADMIN, Role.EDITOR, Role.WRITER)
+  ),
 });

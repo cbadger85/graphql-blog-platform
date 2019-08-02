@@ -1,9 +1,9 @@
-import { Column, Entity, Generated, PrimaryColumn } from 'typeorm';
+import { Column, Entity, Generated, PrimaryGeneratedColumn } from 'typeorm';
+import { Role } from './types/Role';
 
 @Entity()
 export class User {
-  @PrimaryColumn()
-  @Generated('increment')
+  @PrimaryGeneratedColumn('increment')
   id: number;
 
   @Column()
@@ -21,4 +21,7 @@ export class User {
   @Column('text', { nullable: true })
   @Generated('uuid')
   sessionId: string;
+
+  @Column('simple-array')
+  role: Role[];
 }

@@ -1,12 +1,16 @@
 import { ValidationError } from 'apollo-server-core';
 import { isUserUnique } from '../isUserUnique';
+import { Role } from '../../user/types/Role';
 
 describe('isUserUnique', () => {
   const input = {
+    id: 1,
     username: 'username',
     email: 'email@email.com',
     password: 'password',
     name: 'name',
+    sessionId: 'session123',
+    role: [Role.WRITER],
   };
 
   let returnedUser: any;

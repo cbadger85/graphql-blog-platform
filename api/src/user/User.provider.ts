@@ -20,6 +20,7 @@ export class UserProvider {
     email,
     password,
     username,
+    role,
   }: ICreateUser): Promise<User> {
     const hashedPassword = await bcrypt.hash(password, 12);
 
@@ -28,6 +29,7 @@ export class UserProvider {
       name,
       username,
       password: hashedPassword,
+      role,
     });
   }
 

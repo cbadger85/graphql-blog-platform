@@ -9,6 +9,7 @@ import {
 import { User } from './user/User.entity';
 import { UserRepository } from './user/User.repository';
 import dotenv from 'dotenv';
+import { Role } from './user/types/Role';
 
 dotenv.config();
 
@@ -66,6 +67,11 @@ const bootstrap = async () => {
           type: 'character varying',
           isNullable: true,
         },
+        {
+          name: 'role',
+          type: 'text',
+          isNullable: false,
+        },
       ],
     })
   );
@@ -77,6 +83,7 @@ const bootstrap = async () => {
     name: process.env.ADMIN_NAME as string,
     username: process.env.ADMIN_USERNAME as string,
     email: process.env.ADMIN_EMAIL as string,
+    role: [Role.ADMIN, Role.EDITOR, Role.WRITER],
     password,
   });
 
