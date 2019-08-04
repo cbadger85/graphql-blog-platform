@@ -17,24 +17,19 @@ export const userTypeDefs = gql`
     role: [String!]!
   }
 
-  type Mutation {
-    createUser(input: UserInput!): User
-  }
-
   type Query {
     dummy: String
   }
 
   type Mutation {
+    createUser(input: UserInput!): User
+    login(input: LoginInput!): User
+    logout: Boolean
     hello(name: String!): String!
   }
 
   input LoginInput {
     username: String!
     password: String!
-  }
-
-  type Mutation {
-    login(input: LoginInput!): User
   }
 `;

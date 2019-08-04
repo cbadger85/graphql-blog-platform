@@ -11,7 +11,19 @@ const repositoryMock = {
   findUserByField: jest.fn(),
 };
 
-const userProvider = new UserProvider(jest.fn(() => repositoryMock as any));
+const moduleSessionMock = {
+  session: {
+    res: {
+      cookie: jest.fn(),
+      clearCookie: jest.fn(),
+    },
+  },
+};
+
+const userProvider = new UserProvider(
+  jest.fn(() => repositoryMock as any),
+  moduleSessionMock as any
+);
 
 describe('UserProvider - createUser', () => {
   it('should call bcrypt with the password', async () => {
@@ -124,5 +136,19 @@ describe('UserProvider - login', () => {
     const foundUser = await userProvider.login(loginInput);
 
     expect(foundUser).toEqual(user);
+  });
+
+  it('should call createToken once', () => {
+    test.todo;
+  });
+
+  it('should call res.cookie twice', () => {
+    test.todo;
+  });
+});
+
+describe('UserProvider - logout', () => {
+  it('should call res.clearCookie twice', () => {
+    test.todo;
   });
 });

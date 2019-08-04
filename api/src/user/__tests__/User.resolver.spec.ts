@@ -27,6 +27,7 @@ const user = {
 const userProvider = {
   createUser: jest.fn(() => user),
   login: jest.fn(() => user),
+  logout: jest.fn(),
 };
 
 const context = {
@@ -55,5 +56,9 @@ describe('UserResolver', () => {
 
     expect(userProvider.login).toHaveBeenCalledWith(loginInput);
     expect(foundUser).toBe(user);
+  });
+
+  it('should call logout', () => {
+    test.todo;
   });
 });

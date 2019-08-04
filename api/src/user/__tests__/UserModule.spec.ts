@@ -113,3 +113,9 @@ describe('UserModule - login mutation', () => {
     expect(result.errors).toBeDefined();
   });
 });
+
+describe('UserModule - logout mutation', () => {
+  it('should log a user out and return null', () => {
+    test.todo;
+  });
+});
