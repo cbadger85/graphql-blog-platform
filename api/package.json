@@ -24,7 +24,7 @@
   "homepage": "https://github.com/cbadger85/graphql-blog-platform#readme",
   "dependencies": {
     "@graphql-modules/core": "^0.7.8",
-    "@hapi/joi": "^15.1.0",
+    "@hapi/joi": "^15.1.1",
     "apollo-server-express": "^2.7.0",
     "bcryptjs": "^2.4.3",
     "dotenv": "^8.0.0",
